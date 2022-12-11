@@ -25,7 +25,7 @@ deck = ['wild', 'wild', 'wild', 'wild', '+4', '+4', '+4', '+4', 'yellow 0', 'yel
 
 random.shuffle(deck)
 
-print("Made by ElectricS01")
+print('Made by ElectricS01')
 # Do Not Redistribute without permission
 
 input('Ready?')
@@ -51,7 +51,7 @@ while 'empty' in top_card:
     else:
         deck.remove(deck[0])
 
-while 0 < 1:
+while True:
     while turn == 'player':
         action_col = ['a']
         top_card_col = ['b']
@@ -59,7 +59,7 @@ while 0 < 1:
         top_card_num = ['d']
         print(f'The top card is {top_card}, Your deck: {player_deck}.')
         print()
-        action = str.casefold(input("Play a card or \"Draw\" a card "))
+        action = str.casefold(input('Play a card or \"Draw\" a card '))
         if action in player_deck or 'draw' in action:
             print()
 
@@ -120,7 +120,7 @@ while 0 < 1:
                                 action_num = '0'
                             if '1' in action:
                                 action_num = '1'
-                            if '2' in action:
+                            if ' 2' in action:
                                 action_num = '2'
                             if '3' in action:
                                 action_num = '3'
@@ -151,7 +151,7 @@ while 0 < 1:
                                 top_card_num = '2'
                             if '3' in top_card:
                                 top_card_num = '3'
-                            if '4' in top_card:
+                            if ' 4' in top_card:
                                 top_card_num = '4'
                             if '5' in top_card:
                                 top_card_num = '5'
@@ -178,6 +178,7 @@ while 0 < 1:
                                         if 'reverse' not in action:
                                             if '+2' not in action:
                                                 turn = 'enemy'
+                                                break
                                     if '+2' in action:
                                         repeat = 2
                                         while repeat > 0:
@@ -189,25 +190,30 @@ while 0 < 1:
                             else:
                                 if ('+4' or 'wild') not in action:
                                     print(action)
-                                    print("This card can't be played")
+                                    print('This card can\'t be played')
         else:
-            print("This card can't be played")
-
-    print(deck)
+            print('This card can\'t be played')
 
     while turn == 'enemy':
 
-        check = len(enemy_deck)
-        check -= 1
+        emy_actions = []
 
-        while check > -1:
-            if 'blue' in action:
+        check = len(enemy_deck) - 1
+
+        while check >= 0:
+
+            action_col = 'action_col'
+            top_card_col = 'top_card_col'
+            action_num = 'action_num'
+            top_card_num = 'top_card_num'
+
+            if 'blue' in enemy_deck[check]:
                 action_col = 'blue'
-            if 'yellow' in action:
+            if 'yellow' in enemy_deck[check]:
                 action_col = 'yellow'
-            if 'green' in action:
+            if 'green' in enemy_deck[check]:
                 action_col = 'green'
-            if 'red' in action:
+            if 'red' in enemy_deck[check]:
                 action_col = 'red'
 
             if 'blue' in top_card:
@@ -219,31 +225,31 @@ while 0 < 1:
             if 'red' in top_card:
                 top_card_col = 'red'
 
-            if '0' in action:
+            if '0' in enemy_deck[check]:
                 action_num = '0'
-            if '1' in action:
+            if '1' in enemy_deck[check]:
                 action_num = '1'
-            if ' 2' in action:
+            if ' 2' in enemy_deck[check]:
                 action_num = '2'
-            if '3' in action:
+            if '3' in enemy_deck[check]:
                 action_num = '3'
-            if '4' in action:
+            if ' 4' in enemy_deck[check]:
                 action_num = '4'
-            if '5' in action:
+            if '5' in enemy_deck[check]:
                 action_num = '5'
-            if '6' in action:
+            if '6' in enemy_deck[check]:
                 action_num = '6'
-            if '7' in action:
+            if '7' in enemy_deck[check]:
                 action_num = '7'
-            if '8' in action:
+            if '8' in enemy_deck[check]:
                 action_num = '8'
-            if '9' in action:
+            if '9' in enemy_deck[check]:
                 action_num = '9'
-            if 'skip' in action:
+            if 'skip' in enemy_deck[check]:
                 action_num = 'skip'
-            if 'reverse' in action:
+            if 'reverse' in enemy_deck[check]:
                 action_num = 'reverse'
-            if '+2' in action:
+            if '+2' in enemy_deck[check]:
                 action_num = '+2'
 
             if '0' in top_card:
@@ -254,7 +260,7 @@ while 0 < 1:
                 top_card_num = '2'
             if '3' in top_card:
                 top_card_num = '3'
-            if '4' in top_card:
+            if ' 4' in top_card:
                 top_card_num = '4'
             if '5' in top_card:
                 top_card_num = '5'
@@ -274,46 +280,41 @@ while 0 < 1:
                 top_card_num = '+2'
 
             if action_col == top_card_col or action_num == top_card_num:
-                action = random.choice(enemy_deck)
+                emy_actions.append(enemy_deck[check])
+
+            check -= 1
+
+        if emy_actions:
+            emy_action = random.choice(emy_actions)
+        else:
+            emy_action = 'draw'
+
+        if emy_action == 'draw':
+            if len(deck) > 0:
+                enemy_deck.append(deck[0])
+                deck.remove(deck[0])
             else:
-                if check == 0:
-                    action = 'draw'
-                else:
-                    print(enemy_deck)
-                    check -= 1
+                print('the deck is empty 2')
+        else:
+            enemy_deck.remove(emy_action)
+            top_card = emy_action
 
-            print(action)
-
-            if 'draw' in action:
-                if len(deck) > 0:
-                    enemy_deck.append(deck[0])
-                    remove = deck[0]
-                    deck.remove(remove)
-                    turn = 'player'
-                else:
-                    print('the deck is empty 2')
-                    print(deck)
-
-            if action_col == top_card_col or action_num == top_card_num:
-                enemy_deck.remove(action)
-                top_card = action
-                turn = 'player'
-                print(action_col, top_card_col, action_num, top_card_num)
+        turn = 'player'
 
     if player_deck == []:
-        print('You Win!!')
+        print('Your hand is empty, You Win!!')
         break
 
     if enemy_deck == []:
-        print('You Lose:(')
+        print('The enemy\'s hand is empty, You Lose:(')
         break
 
     if deck == []:
         if enemy_deck > player_deck:
-            print('You Win!!')
+            print('Deck is empty, You had less cards, You Win!!')
             break
         else:
-            print('You Lose:(')
+            print('Deck is empty, You had more cards, You Lose:(')
             break
 
 input()
