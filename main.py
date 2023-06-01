@@ -293,8 +293,9 @@ while True:
             if len(deck) > 0:
                 enemy_deck.append(deck[0])
                 deck.remove(deck[0])
+                print('Enemy drew a card')
             else:
-                print('the deck is empty 2')
+                print('The deck is empty, no one wins!')
         else:
             enemy_deck.remove(emy_action)
             top_card = emy_action
